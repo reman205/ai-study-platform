@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyAI - AI-Powered Learning Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-bg-primary: #F5F1ED;
+            --color-bg-secondary: #E8DFD5;
+            --color-bg-accent: #F9F7F4;
+            --color-brown-dark: #2C2416;
+            --color-brown-medium: #5A4A3A;
+            --color-brown-light: #8B7355;
+            --color-tan-primary: #D4A574;
+            --color-tan-secondary: #B8925C;
+            --color-white: #FFFFFF;
+            --color-border: #E5E0D8;
+            
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.16);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+                sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background: linear-gradient(to bottom, var(--color-bg-primary), white, var(--color-bg-primary));
+            color: var(--color-brown-medium);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--color-border);
+            height: 64px;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .nav-logo-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--color-tan-primary), var(--color-brown-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .nav-logo span {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--color-brown-dark);
+        }
+
+        .nav-links {
+            display: none;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: var(--color-brown-medium);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-links a:hover {
+            color: var(--color-brown-dark);
+        }
+
+        .nav-btn {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, var(--color-tan-primary), var(--color-tan-secondary));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-btn:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 128px;
+            padding-bottom: 80px;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .hero-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            gap: 48px;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .hero-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: var(--color-bg-secondary);
+            border-radius: 9999px;
+            width: fit-content;
+        }
+
+        .hero-badge span {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-brown-light);
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--color-brown-dark);
+            line-height: 1.2;
+            margin: 0;
+        }
+
+        @media (min-width: 1024px) {
+            .hero h1 {
+                font-size: 64px;
+            }
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--color-brown-medium);
+            line-height: 1.6;
+            max-width: 550px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        @media (min-width: 640px) {
+            .hero-buttons {
+                flex-direction: row;
+            }
+        }
+
+        .btn-primary {
+            padding: 16px 32px;
+            background: linear-gradient(135deg, var(--color-tan-primary), var(--color-tan-secondary));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 20px 32px rgba(212, 165, 116, 0.3);
+        }
+
+        .btn-secondary {
+            padding: 16px 32px;
+            background: white;
+            color: var(--color-brown-light);
+            border: 2px solid var(--color-tan-primary);
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--color-bg-primary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            padding-top: 32px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--color-brown-light);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--color-brown-medium);
+        }
+
+        /* Hero Illustration */
+        .hero-illustration {
+            position: relative;
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .hero-illustration {
+                display: block;
+            }
+        }
+
+        .illustration-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.2), rgba(139, 115, 85, 0.1));
+            border-radius: 24px;
+            filter: blur(48px);
+            z-index: -1;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 16px;
+            background-color: white;
+        }
+
+        .features-container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .features-header h2 {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--color-brown-dark);
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        @media (min-width: 1024px) {
+            .features-header h2 {
+                font-size: 56px;
+            }
+        }
+
+        .features-header p {
+            font-size: 18px;
+            color: var(--color-brown-medium);
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+
+        @media (min-width: 768px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .feature-card {
+            padding: 32px;
+            background-color: white;
+            border: 1px solid var(--color-border);
+            border-radius: 24px;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            border-color: var(--color-tan-primary);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-brown-dark);
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: var(--color-brown-medium);
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .feature-highlights {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .feature-highlight {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--color-brown-medium);
+        }
+
+        .highlight-check {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--color-tan-primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .feature-footer {
+            padding-top: 24px;
+            border-top: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-tan-primary);
+            transition: var(--transition-smooth);
+        }
+
+        .feature-card:hover .feature-footer {
+            border-top-color: var(--color-tan-primary);
+        }
+
+        /* Dashboard Section */
+        .dashboard-section {
+            padding: 80px 16px;
+        }
+
+        .dashboard-container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .dashboard-header h2 {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--color-brown-dark);
+            margin-bottom: 16px;
+        }
+
+        @media (min-width: 1024px) {
+            .dashboard-header h2 {
+                font-size: 56px;
+            }
+        }
+
+        .dashboard-header p {
+            font-size: 18px;
+            color: var(--color-brown-medium);
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .dashboard-mock {
+            border: 2px solid rgba(212, 165, 116, 0.3);
+            border-radius: 24px;
+            overflow: hidden;
+            background-color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .dashboard-header-section {
+            background: linear-gradient(to right, var(--color-bg-primary), white);
+            padding: 24px 32px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .dashboard-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .dashboard-top h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--color-brown-dark);
+        }
+
+        .dashboard-avatars {
+            display: flex;
+            gap: 12px;
+        }
+
+        .dashboard-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(212, 165, 116, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .dashboard-avatar.active {
+            background: linear-gradient(135deg, var(--color-tan-primary), var(--color-tan-secondary));
+        }
+
+        .dashboard-subtext {
+            font-size: 14px;
+            color: var(--color-brown-medium);
+        }
+
+        .dashboard-content {
+            padding: 32px;
+            display: grid;
+            gap: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .dashboard-content {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        .progress-card {
+            background: linear-gradient(to bottom right, var(--color-bg-primary), white);
+            padding: 32px;
+            border-radius: 24px;
+            border: 1px solid var(--color-border);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 32px;
+        }
+
+        .progress-label {
+            font-size: 12px;
+            color: var(--color-brown-medium);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .progress-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--color-brown-light);
+        }
+
+        .progress-icon {
+            font-size: 32px;
+        }
+
+        .progress-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .progress-bar-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .progress-bar-header {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .progress-bar-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-brown-dark);
+        }
+
+        .progress-bar-value {
+            font-size: 14px;
+            color: var(--color-brown-medium);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background-color: var(--color-border);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-tan-primary), var(--color-tan-secondary));
+            border-radius: 6px;
+            transition: width 1s ease-out;
+        }
+
+        .stats-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .stat-card {
+            background-color: white;
+            padding: 24px;
+            border-radius: 24px;
+            border: 1px solid var(--color-border);
+            transition: var(--transition-smooth);
+        }
+
+        .stat-card:hover {
+            border-color: var(--color-tan-primary);
+        }
+
+        .stat-card-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .stat-card-label {
+            font-size: 12px;
+            color: var(--color-brown-medium);
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .stat-card-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-brown-light);
+        }
+
+        .schedule-section {
+            padding: 0 32px 32px;
+        }
+
+        .schedule-card {
+            background-color: white;
+            padding: 24px;
+            border-radius: 24px;
+            border: 1px solid var(--color-border);
+        }
+
+        .schedule-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .schedule-title {
+            font-weight: 600;
+            color: var(--color-brown-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .schedule-view-all {
+            font-size: 13px;
+            color: var(--color-tan-primary);
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .schedule-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .schedule-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .schedule-item {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            background-color: var(--color-bg-primary);
+            border-radius: 8px;
+            transition: var(--transition-smooth);
+        }
+
+        .schedule-item:hover {
+            background-color: var(--color-bg-secondary);
+        }
+
+        .schedule-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--color-tan-primary);
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+
+        .schedule-info {
+            flex: 1;
+        }
+
+        .schedule-subject {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-brown-dark);
+        }
+
+        .schedule-time {
+            font-size: 12px;
+            color: var(--color-brown-medium);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 16px;
+            background-color: white;
+        }
+
+        .cta-container {
+            max-width: 896px;
+            margin: 0 auto;
+        }
+
+        .cta-text {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .cta-text h2 {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--color-brown-dark);
+            margin-bottom: 16px;
+        }
+
+        .cta-text p {
+            font-size: 18px;
+            color: var(--color-brown-medium);
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, var(--color-bg-primary), var(--color-bg-secondary));
+            border-radius: 24px;
+            padding: 48px 32px;
+            text-align: center;
+        }
+
+        .cta-box h3 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--color-brown-dark);
+            margin-bottom: 16px;
+        }
+
+        .cta-box p {
+            font-size: 16px;
+            color: var(--color-brown-medium);
+            max-width: 500px;
+            margin: 0 auto 32px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        @media (min-width: 640px) {
+            .cta-buttons {
+                flex-direction: row;
+            }
+        }
+
+        .btn-cta {
+            padding: 16px 40px;
+            font-weight: 600;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            border: none;
+        }
+
+        .btn-cta-primary {
+            background: linear-gradient(135deg, var(--color-tan-primary), var(--color-tan-secondary));
+            color: white;
+        }
+
+        .btn-cta-primary:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-cta-secondary {
+            background-color: white;
+            color: var(--color-brown-light);
+            border: 2px solid var(--color-brown-light);
+        }
+
+        .btn-cta-secondary:hover {
+            background-color: var(--color-bg-primary);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--color-brown-dark);
+            color: white;
+            padding: 64px 16px;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .footer-brand h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .footer-brand-text {
+            color: var(--color-tan-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-brand-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--color-tan-primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .footer-column h4 {
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .footer-column a {
+            color: var(--color-tan-secondary);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            font-size: 14px;
+        }
+
+        .footer-column a:hover {
+            color: var(--color-tan-primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(184, 146, 92, 0.2);
+            padding-top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .footer-bottom {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        .footer-copyright {
+            color: var(--color-tan-secondary);
+            font-size: 14px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            color: var(--color-tan-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-links a:hover {
+            color: var(--color-tan-primary);
+        }
+
+        /* Floating Chat Button */
+        .floating-chat {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--color-tan-primary), var(--color-tan-secondary));
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .floating-chat:hover {
+            box-shadow: 0 20px 48px rgba(212, 165, 116, 0.4);
+            transform: scale(1.1);
+        }
+
+        /* Animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-card {
+            animation: slideInUp 0.6s ease-out forwards;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+        .feature-card:nth-child(5) { animation-delay: 0.5s; }
+        .feature-card:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="nav-logo-icon">✨</div>
+                <span>StudyAI</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#dashboard">Dashboard</a>
+                <a href="#pricing">Pricing</a>
+            </div>
+            <button class="nav-btn">Get Started</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div>
+                    <div class="hero-badge">
+                        <span>✨ AI-Powered Learning Platform</span>
+                    </div>
+                </div>
+                <h1>Study Smarter, Not Harder</h1>
+                <p>Your personal AI tutor, quiz generator, and study companion. Master any subject with intelligent learning tools designed for modern students.</p>
+                
+                <div class="hero-buttons">
+                    <button class="btn-primary">Start Learning Free →</button>
+                    <button class="btn-secondary">Watch Demo</button>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat">
+                        <div class="stat-number">50K+</div>
+                        <div class="stat-label">Active Students</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Satisfaction Rate</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">2.5x</div>
+                        <div class="stat-label">Faster Learning</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-illustration">
+                <div class="illustration-bg"></div>
+                <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="50" y="80" width="120" height="160" rx="12" fill="#D4A574" opacity="0.8"/>
+                    <rect x="50" y="85" width="120" height="8" rx="4" fill="#8B7355" opacity="0.5"/>
+                    <rect x="200" y="120" width="100" height="140" rx="12" fill="#8B7355" opacity="0.6"/>
+                    <circle cx="250" cy="100" r="8" fill="#D4A574"/>
+                    <rect x="80" y="270" width="250" height="80" rx="16" fill="white" stroke="#D4A574" stroke-width="2"/>
+                    <circle cx="120" cy="305" r="6" fill="#D4A574"/>
+                    <circle cx="150" cy="305" r="6" fill="#D4A574" opacity="0.5"/>
+                    <line x1="120" y1="330" x2="280" y2="330" stroke="#E5E0D8" stroke-width="2"/>
+                    <line x1="100" y1="40" x2="100" y2="20" stroke="#D4A574" stroke-width="2" opacity="0.6"/>
+                    <line x1="150" y1="35" x2="150" y2="10" stroke="#D4A574" stroke-width="2" opacity="0.4"/>
+                    <line x1="250" y1="50" x2="250" y2="15" stroke="#D4A574" stroke-width="2" opacity="0.5"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="features-container">
+            <div class="features-header">
+                <h2>Everything You Need to Excel</h2>
+                <p>Powerful features designed specifically for students who want to study more effectively and achieve better results.</p>
+            </div>
+
+            <div class="features-grid">
+                <!-- Feature 1 -->
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Personalized Dashboard</h3>
+                    <p>Track your learning progress, completed tasks, upcoming lessons, and study schedule in one beautiful view.</p>
+                    <div class="feature-highlights">
+                        <div class="feature-highlight">
+                            <div class="highlight-check">✓</div>
+                            <span>Progress tracking</span>
+                        </div>
+                        <div class="feature-highlight">
+                            <div class="highlight-check">✓</div>
+                            <span>Task management</span>
+                        </div>
+                        <div class="feature-highlight">
+                            <div class="highlight-check">✓</div>
+                            <span>Study calendar</span>
+                        </div>
+                    </div>
+                    <div class="feature-footer">
+                        Learn more →
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>AI Tutor</h3>
+                    <p>Get instant explanations of difficult concepts, ask any question, and receive personalized study tips.</p>
+                    <div class="feature-highlights">
+                        <div class="feature-highlight">
+                            <div class="highlight-check">✓</div>
+                            <span>Concept explanation</span>
+                        </div>
+                        <div class="feature-highlight">
+                            <div class="highlight-check">✓</div>
+                            <span>Q&A support</span>
+                        </div>
+                        <div class="feature-highlight">
+                            <div class="highlight-check">✓</div>
+                            <span>Study tips</span>
+                        </div>
+                    </div>
+                    <div class="feature-footer">
+                        Learn more →
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="feature-card">
+                    <div class="feature-icon">✓</div>
+                    <h3>Smart Quiz Generator</h3>
+                    <p>Automatically create quizzes from your study materials and track your progress over time.</p>
+                    <div class="feature-highlights">
+                        <div class="feature-highlight">
+                            <div class="highlight-check">✓</div>
+                            <span>Auto-generation</span>
+                        </div>
+                        <div class="feature-highlight">
+                            <div class="highlight-check">✓</div>
+                            <span>Progress tracking</span>
+                        </div>
+                        <div class="feature-highlight">
+                            <div class="highlight-check">✓</div>
+                            <span>Score analytics</span>
+                        </div>
+                    </div>
+                    <div class="feature-footer">
+                        Learn more →
+                    </div>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>Smart Summarizer</h3>
+                    <p>Convert your notes into concise summaries, interactive mind maps, and flashcards instantly.</p>
+                    <div class="feature-highlights">
+                        <div class="feature-highlight">
+                            <div class="highlight-check">✓</div>
+                            <span>Text summaries</span>
+                        </div>
+                        <div class="feature-highlight">
+                            <div class="highlight-check">✓</div>
+                            <span>Mind maps</span>
+                        </div>
+                        <div class="feature-highlight">
+                            <div class="highlight-check">✓</div>
+                            <span>Flashcards</span>
+                        </div>
+                    </div>
+                    <div class="feature-footer">
+                        Learn more →
+                    </div>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>AI Chat Assistant</h3>
+                    <p>Get help anytime with academic questions. Available throughout the platform whenever you need it.</p>
+                    <div class="feature-highlights">
+                        <div class="feature-highlight">
+                            <div class="highlight-check">✓</div>
+                            <span>24/7 availability</span>
+                        </div>
+                        <div class="feature-highlight">
+                            <div class="highlight-check">✓</div>
+                            <span>Context-aware</span>
+                        </div>
+                        <div class="feature-highlight">
+                            <div class="highlight-check">✓</div>
+                            <span>Multi-subject support</span>
+                        </div>
+                    </div>
+                    <div class="feature-footer">
+                        Learn more →
+                    </div>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Learning Analytics</h3>
+                    <p>Deep insights into your learning patterns, strengths, and areas for improvement with visual analytics.</p>
+                    <div class="feature-highlights">
+                        <div class="feature-highlight">
+                            <div class="highlight-check">✓</div>
+                            <span>Performance insights</span>
+                        </div>
+                        <div class="feature-highlight">
+                            <div class="highlight-check">✓</div>
+                            <span>Pattern analysis</span>
+                        </div>
+                        <div class="feature-highlight">
+                            <div class="highlight-check">✓</div>
+                            <span>Recommendations</span>
+                        </div>
+                    </div>
+                    <div class="feature-footer">
+                        Learn more →
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="dashboard-section">
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <h2>Your Learning Dashboard</h2>
+                <p>A beautiful, intuitive interface that gives you complete control over your learning journey.</p>
+            </div>
+
+            <div class="dashboard-mock">
+                <div class="dashboard-header-section">
+                    <div class="dashboard-top">
+                        <h3>Welcome back, Alex</h3>
+                        <div class="dashboard-avatars">
+                            <div class="dashboard-avatar">🔔</div>
+                            <div class="dashboard-avatar active"></div>
+                        </div>
+                    </div>
+                    <p class="dashboard-subtext">Continue your learning journey</p>
+                </div>
+
+                <div class="dashboard-content">
+                    <div class="progress-card">
+                        <div class="progress-header">
+                            <div>
+                                <div class="progress-label">WEEKLY PROGRESS</div>
+                                <div class="progress-value">68%</div>
+                            </div>
+                            <div class="progress-icon">📈</div>
+                        </div>
+                        <div class="progress-bars">
+                            <div class="progress-bar-item">
+                                <div class="progress-bar-header">
+                                    <span class="progress-bar-label">Mathematics</span>
+                                    <span class="progress-bar-value">75%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-bar-fill" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div class="progress-bar-item">
+                                <div class="progress-bar-header">
+                                    <span class="progress-bar-label">Physics</span>
+                                    <span class="progress-bar-value">65%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-bar-fill" style="width: 65%"></div>
+                                </div>
+                            </div>
+                            <div class="progress-bar-item">
+                                <div class="progress-bar-header">
+                                    <span class="progress-bar-label">Chemistry</span>
+                                    <span class="progress-bar-value">55%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-bar-fill" style="width: 55%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stats-cards">
+                        <div class="stat-card">
+                            <div class="stat-card-icon">✓</div>
+                            <div class="stat-card-label">QUIZZES DONE</div>
+                            <div class="stat-card-value">12</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-icon">⏱️</div>
+                            <div class="stat-card-label">STUDY TIME</div>
+                            <div class="stat-card-value">24h</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-icon">🔥</div>
+                            <div class="stat-card-label">STREAK</div>
+                            <div class="stat-card-value">7 days</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="schedule-section">
+                    <div class="schedule-card">
+                        <div class="schedule-header">
+                            <span class="schedule-title">
+                                <span>📅</span>
+                                Upcoming Study Sessions
+                            </span>
+                            <span class="schedule-view-all">View all</span>
+                        </div>
+                        <div class="schedule-grid">
+                            <div class="schedule-item">
+                                <div class="schedule-dot"></div>
+                                <div class="schedule-info">
+                                    <div class="schedule-subject">Linear Algebra</div>
+                                    <div class="schedule-time">Today, 2:00 PM • 1h</div>
+                                </div>
+                            </div>
+                            <div class="schedule-item">
+                                <div class="schedule-dot"></div>
+                                <div class="schedule-info">
+                                    <div class="schedule-subject">Organic Chemistry</div>
+                                    <div class="schedule-time">Tomorrow, 10:00 AM • 1.5h</div>
+                                </div>
+                            </div>
+                            <div class="schedule-item">
+                                <div class="schedule-dot"></div>
+                                <div class="schedule-info">
+                                    <div class="schedule-subject">Physics Lab</div>
+                                    <div class="schedule-time">Thursday, 3:00 PM • 2h</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <div class="cta-text">
+                <h2>Transform Your Study Habits Today</h2>
+                <p>Join thousands of students already using StudyAI to achieve their academic goals. Start learning smarter in just minutes.</p>
+            </div>
+            
+            <div class="cta-box">
+                <h3>Ready to level up your learning?</h3>
+                <p>Get access to all premium features. No credit card required. Free forever plan available.</p>
+                <div class="cta-buttons">
+                    <button class="btn-cta btn-cta-primary">Start Free Trial</button>
+                    <button class="btn-cta btn-cta-secondary">Schedule Demo</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand-text">
+                        <div class="footer-brand-icon">✨</div>
+                        <div>
+                            <h4>StudyAI</h4>
+                            <p style="color: var(--color-tan-secondary); margin-top: 8px;">Learning smarter, not harder.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Security</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API Docs</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2024 StudyAI. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Chat Button -->
+    <button class="floating-chat" title="Chat with StudyAI">💬</button>
+</body>
+</html>
