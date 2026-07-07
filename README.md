@@ -31,6 +31,8 @@ AI-powered study platform for university students with personalized learning too
   
 ## 👩‍💻 Author
 
-Reman Hussam Ghawanni  
-Artificial Intelligence Student  
+**Reman Hussam Ghawanni**
+
+Artificial Intelligence Student
+
 Taibah University
