@@ -1,4 +1,7 @@
 # 📚 AI Study Platform
+![Project Status](https://img.shields.io/badge/Status-Completed-success)
+
+![Project Type](https://img.shields.io/badge/Type-Individual%20Project-orange)
 
 AI-powered study platform for university students with personalized learning tools, AI tutoring, quiz generation, and smart summaries.
 
