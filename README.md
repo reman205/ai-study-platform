@@ -21,6 +21,14 @@ AI-powered study platform for university students with personalized learning too
 - CSS3
 - JavaScript
 
+## 🚀 Future Improvements
+
+- Add real AI tutor integration.
+- Generate quizzes from uploaded course materials.
+- Summarize PDF lecture notes.
+- Add user login and progress tracking.
+- Save flashcards and quiz results.
+  
 ## 👩‍💻 Author
 
 Reman Hussam Ghawanni  
